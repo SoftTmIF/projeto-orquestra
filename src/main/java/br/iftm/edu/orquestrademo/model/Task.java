@@ -8,22 +8,22 @@ public class Task {
     private Integer id; //AUTO_INCREMENT
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dataExecucao;
-    private Double totalHoras; //transformar a entrada do usuário de horas para minutos para inserir no banco
-    private String tipoNatureza; //criar enum
+    private Double totalHoras; 
+    private String tipoNatureza; 
     private String descricao;
-    private Integer idUsuario; //buscar do objeto de login
+    private String usuario; //buscar do objeto de login
     private Integer idProjeto;
 
     public Task() {
     }
 
-    public Task(Integer id, Date dataExecucao, Double totalHoras, String tipoNatureza, String descricao, Integer idUsuario, Integer idProjeto) {
+    public Task(Integer id, Date dataExecucao, Double totalHoras, String tipoNatureza, String descricao, String usuario, Integer idProjeto) {
         this.id = id;
         this.dataExecucao = dataExecucao;
         this.totalHoras = totalHoras;
         this.tipoNatureza = tipoNatureza;
         this.descricao = descricao;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.idProjeto = idProjeto;
     }
 
@@ -67,19 +67,22 @@ public class Task {
         this.descricao = descricao;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+
+    public String getUsuario() {
+        return this.usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
+    
 
     public Integer getIdProjeto() {
-        return idProjeto;
+        return this.idProjeto;
     }
 
     public void setIdProjeto(Integer idProjeto) {
         this.idProjeto = idProjeto;
     }
+
 }

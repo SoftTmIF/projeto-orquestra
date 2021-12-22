@@ -1,5 +1,6 @@
 package br.iftm.edu.orquestrademo.controller;
 
+import br.iftm.edu.orquestrademo.model.PesquisaTask;
 import br.iftm.edu.orquestrademo.model.Task;
 import br.iftm.edu.orquestrademo.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,21 @@ public class TaskControlador {
     @Autowired
     TaskRepository repo;
 
-//    Retorna lista de tasks
+//    Retorna lista completa de tasks
     @GetMapping(value = "/tasks")
     public String tasksTabela(Model modelo) {
         List<Task> lista = repo.buscaTodasTasks();
         modelo.addAttribute("tasks", lista);
+        modelo.addAttribute("pesquisa", new PesquisaTask());
+        return "lista-tasks";
+    }
+
+//    Recebe datas que deverão ser pesquisadas
+    @PostMapping(value = "/tasks")
+    public String tasksPesquisa(Model modelo, PesquisaTask pesquisa) {
+        List<Task> lista = repo.pesquisaTaksData(pesquisa);
+        modelo.addAttribute("tasks", lista);
+        modelo.addAttribute("pesquisa", new PesquisaTask());
         return "lista-tasks";
     }
 
@@ -37,6 +48,7 @@ public class TaskControlador {
     public String tasksCadastro(Task task) {
         if(task.getId() == null) {
             repo.insereTask(task);
+            repo.insereUsuarioProjeto(task);
         } else {
             repo.atualizaTask(task);
         }

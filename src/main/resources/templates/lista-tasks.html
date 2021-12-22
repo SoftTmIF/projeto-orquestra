@@ -9,31 +9,31 @@
     <link rel="stylesheet" href="/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="/static/images/add.png" th:href="@{/images/add.png}">
 </head>
-<body>
-    <header th:insert="fragments/navbar::navbar"></header>
+<body class="home-body">
+    <header th:insert="fragments/header::navbar"></header>
 
-    <!-- TODO: Verificar como fazer filtro através de data para utilizar o botão pesquisar -->
-
-    <main>
-        <div class="row g-3 form">
+    <main class="bordas">
+        <div class="row form">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <legend class="titulo">Tasks</legend>
                 <a href="cadastro-task" ><button class="btn btn-primary rounded-circle border-0 p-2" type="button"><img width="40px" th:src="@{/images/add.png}"> </button></a>
-
             </div>
-            <div class="form-group col-md-3">
-                <label for="dataInicio">Início</label>
-                <input type="date" class="form-control" id="dataInicio">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="dataFim">Fim</label>
-                <input type="date" class="form-control" id="dataFim">
-            </div>
-            <div class="form-group col-md-3">
-                <button class="btn btn-primary mt-4" type="submit">Pesquisar</button>
-            </div>
+            <form action="/tasks" method="post" th:object="${pesquisa}"  class="row form">
+                <div class="form-group col-md-3">
+                    <label for="dataInicio">Início</label>
+                    <input th:field="*{dataInicioPesquisa}" type="date" class="form-control" id="dataInicio">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dataFim">Fim</label>
+                    <input th:field="*{dataFimPesquisa}" type="date" class="form-control" id="dataFim">
+                </div>
+                <div class="d-grid gap-2 d-md-block" style="padding:20px">
+                    <a href="/tasks"><button class="btn btn-primary" type="button">Limpar</button></a>
+                    <button class="btn btn-primary" type="submit" >Filtrar</button>
+                </div>
+            </form>
             <div class="form-group">
-                <table class="table table-hover">
+                <table class="table table-hover mt-4">
                     <thead class="thead-dark thead-tasks">
                     <tr>
                         <th>Item</th>
@@ -41,6 +41,8 @@
                         <th>Total de horas</th>
                         <th>Natureza</th>
                         <th>Descrição</th>
+                        <th>Projeto</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tr th:each="task:${tasks}" th:object="${task}">
@@ -49,8 +51,9 @@
                         <td th:text="*{totalHoras}">00:00</td>
                         <td th:text="*{tipoNatureza}">Exemplo</td>
                         <td th:text="*{descricao}">Lorem ipsum dolor sit, amet consectetur adipisicing.</td>
-                        <td><a th:href="@{/editar-task(id=*{id})}"><img width="25px" th:src="@{/images/edit.png}" alt=""></a></td>
-                        <td><a th:href="@{/excluir-task(id=*{id})}"><img width="25px" th:src="@{/images/delete.png}" alt=""></a></td>
+                        <td th:text="*{idProjeto}">Lorem</td>
+                        <td><a th:href="@{/editar-task(id=*{id})}"><img width="25px" th:src="@{/images/edit.png}" alt=""></a>
+                        <a th:href="@{/excluir-task(id=*{id})}"><img width="25px" th:src="@{/images/delete.png}" alt=""></a></td>
                     </tr>
                 </table>
             </div>

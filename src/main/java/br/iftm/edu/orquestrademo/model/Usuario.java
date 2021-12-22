@@ -2,18 +2,23 @@ package br.iftm.edu.orquestrademo.model;
 
 public class Usuario {
     private Integer id_usuario;
-    private String senha;
     private String nome_usuario;
+    private String senha;
 
     public Usuario() {
     }
 
     public Usuario(String nome_usuario, String senha) {
-        id_usuario++;
         this.senha = senha;
         this.nome_usuario = nome_usuario;
     }
 
+    public Usuario(Integer id_usuario, String nome_usuario, String senha) {
+        this.id_usuario = id_usuario;
+        this.nome_usuario = nome_usuario;
+        this.senha = senha;
+    }
+    
     public Integer getId_usuario() {
         return this.id_usuario;
     }
